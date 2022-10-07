@@ -11,9 +11,9 @@ var submit = () => {
 
   if (input.value) {
     removeBtn.innerHTML = "Remove";
-    removeBtn.className = "removeBtn";
+    removeBtn.className = "Btn";
     editBtn.innerHTML = "Edit"
-    editBtn.className = "editBtn";
+    editBtn.className = "Btn";
     div.className = "taskContainer";
     span.className = "taskItem";
 
@@ -25,17 +25,35 @@ var submit = () => {
     });
 
     div.append(span);
-
     div.appendChild(removeBtn);
     div.appendChild(editBtn);
 
-    editBtn.addEventListener("click", () => {
-        var editInput = document.createElement("input");
-                
-        span.replaceWith(editInput);
-    })
+    editBtn.addEventListener("click", () => {edit(span,editBtn)})
+
     list.append(div);
     console.log(list.childElementCount);
+
+
+    var edit = (span, editBtn) => {
+        var editInput = document.createElement("input");
+        var doneEditBtn = document.createElement("button");
+    
+        doneEditBtn.className = "btn";
+        doneEditBtn.innerHTML = "Done";
+        span.replaceWith(editInput);
+        editBtn.replaceWith(doneEditBtn);
+    
+        doneEditBtn.addEventListener("click", () => {editComplete(editInput,doneEditBtn)});
+        editInput.value = span.innerHTML;
+    }
+    
+    var editComplete = (editInput, doneEditBtn) => {
+        editInput.replaceWith(span);
+        span.innerHTML = editInput.value;
+        doneEditBtn.replaceWith(editBtn);
+    }
+
+
   }
 };
 
