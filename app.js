@@ -9,7 +9,7 @@ input.addEventListener("keyup", (e) => {
   if (e.key === "Enter") {
     submitButton.click();
   }
-})
+});
 
 const submit = () => {
   const taskContainer = document.createElement("div");
@@ -76,25 +76,27 @@ const submit = () => {
 
       span.replaceWith(editInput);
       editBtn.replaceWith(doneEditBtn);
+      editInput.value = span.innerHTML;
 
       /** put focus on input edit to put user directly
        * into edit input */
       editInput.focus();
 
-
+      /**Add event listener for input to check if user pressed enter */
       editInput.addEventListener("keyup", (e) => {
         if (e.key === "Enter") {
           doneEditBtn.click();
         }
       });
 
+      /**Event listener for done key */
       doneEditBtn.addEventListener("click", () => {
         editComplete(editInput, doneEditBtn);
       });
 
-      editInput.value = span.innerHTML;
     };
 
+    /**function for when user done editing their task */
     const editComplete = (editInput, doneEditBtn) => {
       editInput.replaceWith(span);
       span.innerHTML = editInput.value;
