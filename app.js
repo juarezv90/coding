@@ -1,6 +1,7 @@
 const input = document.getElementById("item");
 const list = document.getElementById("list");
 const submitButton = document.getElementById("submitButton");
+const clrDone = document.getElementById("clearDone");
 
 /*Add event listener for user pressing Enter and 
 will call the submit button click event*/
@@ -25,6 +26,7 @@ const submit = () => {
     assign innerHTML and class name, onclick will remove task */
     removeBtn.innerHTML = "Remove";
     removeBtn.className = "btn";
+    removeBtn.id = "remove";
     removeBtn.addEventListener("click", () => {
       list.removeChild(taskContainer);
     });
@@ -93,8 +95,18 @@ const submit = () => {
       doneEditBtn.addEventListener("click", () => {
         editComplete(editInput, doneEditBtn);
       });
-
     };
+
+    /**add event listener to clear done button
+     * will remove the event listener specific to
+     * task that added it
+     */
+    clrDone.addEventListener("click", function clearDone(event) {
+       if (radioBtnDone.checked) {
+        removeBtn.click();
+        clrDone.removeEventListener("click", clearDone);
+      }
+    });
 
     /**function for when user done editing their task */
     const editComplete = (editInput, doneEditBtn) => {
@@ -109,4 +121,9 @@ const submit = () => {
     taskContainer.append(btnContainer);
     list.append(taskContainer);
   }
+};
+
+//clear function for clear list
+const clr = () => {
+  list.innerHTML = "";
 };
