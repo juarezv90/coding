@@ -13,6 +13,8 @@ input.addEventListener("keyup", (e) => {
 });
 
 const submit = () => {
+
+
   const taskContainer = document.createElement("div");
   const removeBtn = document.createElement("button");
   const editBtn = document.createElement("button");
@@ -42,6 +44,13 @@ const submit = () => {
     span.className = "taskItem";
     span.innerHTML = input.value;
     input.value = "";
+
+    /**Click event for task text that will check item off for
+     * if user clicks on text.
+     */
+    span.addEventListener("click", () => {
+      radioBtnDone.click();
+    })
 
     /* Set attributes for radio button, then assigned classnames
     and adds event listener to catch property changes.*/
@@ -97,9 +106,9 @@ const submit = () => {
       });
     };
 
-    /**add event listener to clear done button
-     * will remove the event listener specific to
-     * task that added it
+    /** Clear done event that will remove task that are done
+     * will also remove the listener that applied to specific 
+     * task that was created.
      */
     clrDone.addEventListener("click", function clearDone(event) {
        if (radioBtnDone.checked) {
@@ -127,3 +136,8 @@ const submit = () => {
 const clr = () => {
   list.innerHTML = "";
 };
+
+window.addEventListener("beforeunload", function (e) {
+  e.preventDefault();
+  e.returnValue = " ";
+})
