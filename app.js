@@ -2,6 +2,8 @@ const input = document.getElementById("item");
 const list = document.getElementById("list");
 const submitButton = document.getElementById("submitButton");
 const clrDone = document.getElementById("clearDone");
+const storage = localStorage;
+
 
 /*Add event listener for user pressing Enter and 
 will call the submit button click event*/
@@ -30,6 +32,7 @@ const submit = () => {
     removeBtn.className = "btn";
     removeBtn.id = "remove";
     removeBtn.addEventListener("click", () => {
+      localStorage.removeItem(span.innerHTML);
       list.removeChild(taskContainer);
     });
 
@@ -43,6 +46,7 @@ const submit = () => {
 
     span.className = "taskItem";
     span.innerHTML = input.value;
+    localStorage.setItem(input.value, input.value);
     input.value = "";
 
     /**Click event for task text that will check item off for
@@ -84,7 +88,7 @@ const submit = () => {
       const doneEditBtn = document.createElement("button");
       doneEditBtn.className = "btn";
       doneEditBtn.innerHTML = "Done";
-
+      localStorage.removeItem(span.innerHTML);
       span.replaceWith(editInput);
       editBtn.replaceWith(doneEditBtn);
       editInput.value = span.innerHTML;
@@ -121,6 +125,7 @@ const submit = () => {
     const editComplete = (editInput, doneEditBtn) => {
       editInput.replaceWith(span);
       span.innerHTML = editInput.value;
+      localStorage.setItem(span.innerHTML, span.innerHTML);
       doneEditBtn.replaceWith(editBtn);
     };
 
@@ -134,10 +139,17 @@ const submit = () => {
 
 //clear function for clear list
 const clr = () => {
+  localStorage.clear();
   list.innerHTML = "";
 };
 
-window.addEventListener("beforeunload", function (e) {
-  e.preventDefault();
-  e.returnValue = " ";
-})
+/**function to check if there is any data save in clients
+ * device then will load data into list. Make list persist even
+ * after use.
+ */
+if (storage.length > 0){
+  for (let i = 0; i < storage.length; i++) {
+    input.value = storage.getItem(storage.key(i));
+    submit();
+  }
+}
