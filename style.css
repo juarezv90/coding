@@ -3,6 +3,7 @@
 :root {
     --bg-color: hsl(140,25%, 75%);
     --list-color: hsla(140,75%, 50%, .45);
+    --button-hover-click: hsl(160, 100%, 50%);
 }
 
 html {
@@ -20,7 +21,7 @@ body {
 
 .container {
     width: 80%;
-    min-width: 450px;
+    min-width: 400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -29,29 +30,29 @@ body {
 }
 
 #input {
-    width: 35%;
     min-width: 300px;
     margin-bottom: 1rem;
-    padding: 1rem;
+    padding: .5rem;
 }
 
 #item {
-    width:75%;
+    width:12rem;
 }
 
 #list {
-    margin-left: 2rem;
     display: flex;
     flex-direction: column;
     width:100%;
 }
+
+
 .taskContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 10px;
     width: 90%;
-    min-width: 450px;
+    min-width: 300px;
     max-width: 650px;
     background-color: var(--list-color);
     margin: .5rem auto;
@@ -72,7 +73,46 @@ body {
     margin-left: auto;
 }
 
-.taskContainer .btn {
-    padding:5px 10px;
-    margin-right: 5px;
+#clear {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 300px;
+    margin-bottom: 10px;
+}
+
+button {
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid black;
+    border-radius: 5px;;
+    background-color: var(--list-color);
+    margin-right: .25rem;
+    padding: 5px 10px;
+}
+
+button:hover, button:focus {
+    background-color: var(--button-hover-click);
+}
+
+input {
+    font-size: 1rem;
+    outline: none;
+}
+
+input:focus {
+    border: 2px solid var(--list-color);
+}
+
+@media ( min-width: 300px ) {
+    button {
+        font-size: .8rem;
+    }
+}
+
+@media print {
+    #item, button {
+        display:none;
+    }
 }
