@@ -58,6 +58,8 @@ function populateList(myTask) {
   const span = document.createElement("span");
   const btnContainer = document.createElement("div");
   const radioBtnDone = document.createElement("input");
+  const editInput = document.createElement("input");
+  const doneEditBtn = document.createElement("button");
 
   /* Adds the click event listeners to the remove button
     assign innerHTML and class name, onclick will remove task */
@@ -126,8 +128,6 @@ function populateList(myTask) {
     replace the edit button with a done button for when user is done completing
     their edit*/
   const edit = () => {
-    const editInput = document.createElement("input");
-    const doneEditBtn = document.createElement("button");
     doneEditBtn.className = "btn";
     doneEditBtn.innerHTML = "Done";
     localStorage.removeItem(myTask.task);
